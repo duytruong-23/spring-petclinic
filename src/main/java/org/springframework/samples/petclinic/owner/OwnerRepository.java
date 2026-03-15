@@ -58,7 +58,7 @@ public interface OwnerRepository extends JpaRepository<Owner, Integer> {
 	 * @throws IllegalArgumentException if the id is null (assuming null is not a valid
 	 * input for id)
 	 */
-	@EntityGraph(attributePaths = {"pets"}, type = EntityGraph.EntityGraphType.LOAD)
+	@EntityGraph(attributePaths = { "pets" }, type = EntityGraph.EntityGraphType.LOAD)
 	Optional<Owner> findById(Integer id);
 
 }
