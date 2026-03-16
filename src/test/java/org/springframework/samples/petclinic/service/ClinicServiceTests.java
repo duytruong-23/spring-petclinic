@@ -256,7 +256,7 @@ class ClinicServiceTests {
 
 		Owner owner = optionalOwner.get();
 
-		assertThat(Persistence.getPersistenceUtil().isLoaded(owner, "pet")).isTrue();
+		assertThat(Persistence.getPersistenceUtil().isLoaded(owner, "pets")).isTrue();
 		assertThat(owner.getPets()).hasSize(1);
 	}
 
@@ -267,7 +267,7 @@ class ClinicServiceTests {
 
 		Owner owner = owners.getContent().get(0);
 
-		assertThat(Persistence.getPersistenceUtil().isLoaded(owner, "pet")).isTrue();
+		assertThat(Persistence.getPersistenceUtil().isLoaded(owner, "pets")).isTrue();
 		assertThat(owner.getPets()).hasSize(1);
 	}
 
