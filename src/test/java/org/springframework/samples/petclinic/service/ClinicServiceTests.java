@@ -20,7 +20,7 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Optional;
 
-import org.hibernate.Hibernate;
+import jakarta.persistence.Persistence;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
@@ -256,7 +256,18 @@ class ClinicServiceTests {
 
 		Owner owner = optionalOwner.get();
 
-		assertThat(Hibernate.isInitialized(owner.getPets())).isTrue();
+		assertThat(Persistence.getPersistenceUtil().isLoaded(owner, "pet")).isTrue();
+		assertThat(owner.getPets()).hasSize(1);
+	}
+
+	@Test
+	void shouldEagerLoadPetsWhenFindingOwnerByLastName() {
+		Page<Owner> owners = this.owners.findByLastNameStartingWith("Franklin", pageable);
+		assertThat(owners).hasSize(1);
+
+		Owner owner = owners.getContent().get(0);
+
+		assertThat(Persistence.getPersistenceUtil().isLoaded(owner, "pet")).isTrue();
 		assertThat(owner.getPets()).hasSize(1);
 	}
 
